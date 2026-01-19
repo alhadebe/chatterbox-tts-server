@@ -11,8 +11,8 @@ from typing import Optional, Tuple
 from pathlib import Path
 
 # Explicitly set offline mode for Hugging Face before any imports
-#os.environ["HF_HUB_OFFLINE"] = "1"
-#os.environ["TRANSFORMERS_OFFLINE"] = "1"
+os.environ["HF_HUB_OFFLINE"] = "0"
+os.environ["TRANSFORMERS_OFFLINE"] = "0"
 
 try:
     from chatterbox.tts import ChatterboxTTS  # Main TTS engine class
@@ -305,20 +305,20 @@ def load_model() -> bool:
             from pathlib import Path
 
             # Configure for offline operation
-            #huggingface_hub.constants.HF_HUB_OFFLINE = True
-            #os.environ["HF_HUB_OFFLINE"] = "1"
+            huggingface_hub.constants.HF_HUB_OFFLINE = False
+            os.environ["HF_HUB_OFFLINE"] = "0"
 
             # Create a dummy token to satisfy the library's requirement without needing real authentication
             # This is necessary because some versions of Hugging Face libraries check for token existence
-            # cache_dir = Path(config_manager.get_string("paths.model_cache", "./model_cache"))
-            # token_file = cache_dir / "token"
+            cache_dir = Path(config_manager.get_string("paths.model_cache", "./model_cache"))
+            token_file = cache_dir / "token"
 
             # Create token file if it doesn't exist
-            # if not token_file.exists():
-            #     logger.info(f"Creating dummy token file at: {token_file}")
-            #     token_file.parent.mkdir(parents=True, exist_ok=True)
-            #     with open(token_file, 'w') as f:
-            #         f.write('hf_dummy_for_offline_mode')  # Dummy token to satisfy library requirement
+            if not token_file.exists():
+                logger.info(f"Creating dummy token file at: {token_file}")
+                token_file.parent.mkdir(parents=True, exist_ok=True)
+                with open(token_file, 'w') as f:
+                    f.write('hf_dummy_for_offline_mode')  # Dummy token to satisfy library requirement
 
             # Load the model using from_pretrained with offline settings
             chatterbox_model = model_class.from_pretrained(device=model_device)
