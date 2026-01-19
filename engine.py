@@ -310,15 +310,15 @@ def load_model() -> bool:
 
             # Create a dummy token to satisfy the library's requirement without needing real authentication
             # This is necessary because some versions of Hugging Face libraries check for token existence
-            cache_dir = Path(config_manager.get_string("paths.model_cache", "./model_cache"))
-            token_file = cache_dir / "token"
+            # cache_dir = Path(config_manager.get_string("paths.model_cache", "./model_cache"))
+            # token_file = cache_dir / "token"
 
             # Create token file if it doesn't exist
-            if not token_file.exists():
-                logger.info(f"Creating dummy token file at: {token_file}")
-                token_file.parent.mkdir(parents=True, exist_ok=True)
-                with open(token_file, 'w') as f:
-                    f.write('hf_dummy_for_offline_mode')  # Dummy token to satisfy library requirement
+            # if not token_file.exists():
+            #     logger.info(f"Creating dummy token file at: {token_file}")
+            #     token_file.parent.mkdir(parents=True, exist_ok=True)
+            #     with open(token_file, 'w') as f:
+            #         f.write('hf_dummy_for_offline_mode')  # Dummy token to satisfy library requirement
 
             # Load the model using from_pretrained with offline settings
             chatterbox_model = model_class.from_pretrained(device=model_device)
