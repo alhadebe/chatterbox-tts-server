@@ -11,8 +11,8 @@ from typing import Optional, Tuple
 from pathlib import Path
 
 # Explicitly set offline mode for Hugging Face before any imports
-os.environ["HF_HUB_OFFLINE"] = "1"
-os.environ["TRANSFORMERS_OFFLINE"] = "1"
+#os.environ["HF_HUB_OFFLINE"] = "1"
+#os.environ["TRANSFORMERS_OFFLINE"] = "1"
 
 try:
     from chatterbox.tts import ChatterboxTTS  # Main TTS engine class
@@ -305,8 +305,8 @@ def load_model() -> bool:
             from pathlib import Path
 
             # Configure for offline operation
-            huggingface_hub.constants.HF_HUB_OFFLINE = True
-            os.environ["HF_HUB_OFFLINE"] = "1"
+            #huggingface_hub.constants.HF_HUB_OFFLINE = True
+            #os.environ["HF_HUB_OFFLINE"] = "1"
 
             # Create a dummy token to satisfy the library's requirement without needing real authentication
             # This is necessary because some versions of Hugging Face libraries check for token existence
